@@ -29,6 +29,7 @@ s.headers.update({'Referer': mirea_url})
 CREDENTIALS_FILE = 'path/to/your/credentials.json'
 WEB_APP_URL =os.getenv('WEB_APP_URL')
 WEB_APP_URL2 =os.getenv('WEB_APP_URL2')
+
 # ID вашей таблицы (можно найти в URL: https://docs.google.com/spreadsheets/d/ID_ТАБЛИЦЫ/edit)
 SPREADSHEET_ID = '1tBoktUQPkdC4zwQdsyE3MGR5Kcf74MIl2M7rz2T4mEc'
 RANGE_NAME = 'Class Data!A2:E' # "Название листа!диапазон"
@@ -60,7 +61,7 @@ HELP_TEXT = """Available commands:
 
 Send a normal text message and the bot will echo it back."""
 USER_ID = [8293418325,5058627557,7751534678]
-
+TIME_str= -11
 #Команды не относящиеся к сообщениям
 def get_sheet_data(sheet_name=None):
     """Получить данные с конкретного листа"""
@@ -100,8 +101,8 @@ def updat():
             #     if len(q)==1:
             #         soup=q
             # print(soup.find_all("b")[1])
-            print(len(soup))
-            print(soup[0].find_all(class_="year")[0].text)
+            # print(len(soup))
+            # print(soup[0].find_all(class_="year")[0].text)
 
             l = str(soup[0].find_all(target="_blank")[0])
             # получение данных книги
@@ -134,13 +135,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if message is None:
         return
     ti = time.ctime(time.time())
+    global TIME_str
     if user.id in USER_ID:
         await message.reply_text(
-            f"Бот запущен 0.3")
+            f"Бот запущен 0.4")
+
 
         while 1:
-            time.sleep(60)
-            if ti[:-9]!=str(time.ctime(time.time()))[:-9]:
+            time.sleep(1)
+            # print(ti[:TIME_str]," "+str(time.ctime(time.time()))[:TIME_str])
+            if ti[:TIME_str]!=str(time.ctime(time.time()))[:TIME_str]:
                 await message.reply_text(f"Плановое обновление "+str(time.ctime(time.time())))
                 st = ""
                 l = 0
@@ -217,26 +221,37 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await message.reply_text(f"Айди не одобрен:\n{user.id}")
 
 
-async def upd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    del context
-    message = update.effective_message
-    user = update.effective_user
-    if user.id in [8293418325,5058627557,7751534678]:
-        await message.reply_text(f"Обновление начато")
-        st = ""
-        l = 0
-        for i in updat():
-            s = ""
-            [s := s + " " + j for j in i]
-            st += "\n" + s
-            l += 1
-
-
-
-        await message.reply_text(
-            "Таблица обновлена на " + str(l) + " строки\n" + st if l > 0 else "Таблица не обновлена")
-    else:
-        await message.reply_text(f"Айди не одобрен:\n{user.id}")
+# async def upd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+#     del context
+#     message = update.effective_message
+#     user = update.effective_user
+#     if user.id in USER_ID:
+#         await message.reply_text(f"""Установить скорость обновления
+#             1 = 10ч
+#             2 = час
+#             3 = 10 мин
+#             4 = мин
+# """)
+#         global TIME_str
+#         message = update.effective_message
+#         await message.reply_text(str(TIME_str))
+#         if message.text in "1234":
+#
+#             TIME_str = [-12,-11,-9,-5][int(message.text)]
+#             return
+#         else:
+#             await message.reply_text(f"""Введите скорость от 1 до 4""")
+#
+#
+#
+#
+#
+#
+#
+#
+#     else:
+#         await message.reply_text(f"Айди не одобрен:\n{user.id}")
+#         return
 
 
 async def unknown_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -265,7 +280,7 @@ async def set_bot_commands(application: Application) -> None:
 
 def register_handlers(application: Application) -> None:
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("update", upd))
+    # application.add_handler(CommandHandler("update", upd))
     # application.add_handler(CommandHandler("pars", pars))
         # application.add_handler(CommandHandler("test", test))
     # application.add_handler(MessageHandler(filters.COMMAND, unknown_command))
