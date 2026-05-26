@@ -76,14 +76,17 @@ def get_sheet_data(sheet_name=None):
 def updat():
     day = str(date.today()).replace("-", ".")
     glob_date = []
-    for i in range(len(k := (get_sheet_data("Лист1")['data'][2:]))):
+    for i in range(len(k := (get_sheet_data("2026 ЭЛ.")['data'][2:]))):
 
         # Запросы к библиотеке миреа
         so = BeautifulSoup(s.get(mirea_url + k[i][2], timeout=10).text, 'html.parser')
 
         soup = so.find_all(class_="bib-desc")
         # Запросы к библиотеке миреа
-
+        type_book = k[i][3]
+        alf = "АБЕВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабевгдеёжзийклмнопрстуфхцчшщъыьэюя"
+        [type_book := type_book.replace(alf[i], alf[i + 34]) for i in range(0, 34)]
+        soup = [x for x in soup if x.find_all("b")[1]==": "+type_book]
         # for j in soup:
         #     print(j)
         # [x for x in soup if x.find_all("b")[1]]
@@ -129,7 +132,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     ti = time.ctime(time.time())
     if user.id in USER_ID:
         await message.reply_text(
-            f"Бот запущен 0.1")
+            f"Бот запущен 0.2")
 
         while 1:
             time.sleep(60)
