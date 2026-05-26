@@ -136,7 +136,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
         while 1:
             time.sleep(60)
-            if ti[:-9]!=time.ctime(time.time())[:-9]:
+            if ti[:-9]!=str(time.ctime(time.time()))[:-9]:
                 await message.reply_text(f"Плановое обновление "+str(time.ctime(time.time())))
                 st = ""
                 l = 0
@@ -146,7 +146,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                     st += "\n" + strr
                     l += 1
 
-                await message.reply_text("Таблица обновлена на " + str(l) + " строки\n" + st if l > 0 else "Таблица не обновлена")
+                await message.reply_text(
+                    "Таблица обновлена на " + str(l) + " строки\n" + st if l > 0 else "Таблица не обновлена")
                 ti = time.ctime(time.time())
 
 async def mes(update:Update)->None:
