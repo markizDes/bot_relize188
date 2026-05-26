@@ -136,7 +136,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     ti = time.ctime(time.time())
     if user.id in USER_ID:
         await message.reply_text(
-            f"Бот запущен 0.2")
+            f"Бот запущен 0.3")
 
         while 1:
             time.sleep(60)
