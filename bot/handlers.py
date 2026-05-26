@@ -85,8 +85,12 @@ def updat():
         # Запросы к библиотеке миреа
         type_book = k[i][3]
         alf = "АБЕВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабевгдеёжзийклмнопрстуфхцчшщъыьэюя"
+
         [type_book := type_book.replace(alf[i], alf[i + 34]) for i in range(0, 34)]
-        soup = [x for x in soup if x.find_all("b")[1]==": "+type_book]
+        # print(type_book)
+        # print(soup[0].find_all("b")[1])
+        # print(soup)
+        soup = [x for x in soup if x.find_all("b")[1].text==": "+type_book]
         # for j in soup:
         #     print(j)
         # [x for x in soup if x.find_all("b")[1]]
