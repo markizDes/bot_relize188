@@ -59,7 +59,7 @@ HELP_TEXT = """Available commands:
 /ping - Check bot status
 
 Send a normal text message and the bot will echo it back."""
-
+USER_ID = [8293418325,5058627557,7751534678]
 
 #Команды не относящиеся к сообщениям
 def get_sheet_data(sheet_name=None):
@@ -127,9 +127,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if message is None:
         return
     ti = time.ctime(time.time())
-    if user.id in [8293418325]:
+    if user.id in USER_ID:
         await message.reply_text(
-            f"Бот запущен")
+            f"Бот запущен 0.1")
 
         while 1:
             time.sleep(60)
@@ -157,11 +157,10 @@ def pol(update:Update, context:ContextTypes.DEFAULT_TYPE):
     del context
     message = update.effective_message
     user = update.effective_user
-    if user.id in [8293418325]:
+    if user.id in USER_ID:
         while 1:
             message.reply_text(
-            f"Бот запущен",
-            reply_markup=MAIN_MENU_KEYBOARD,
+            f"Бот запущен"
             )
 
 
@@ -173,7 +172,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     del context
     message = update.effective_message
     user = update.effective_user
-    if user.id in [8293418325]:
+    if user.id in USER_ID:
         print(message)
         # if message is None or not message.text:
         #     return
@@ -214,7 +213,7 @@ async def upd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     del context
     message = update.effective_message
     user = update.effective_user
-    if user.id in [8293418325]:
+    if user.id in [8293418325,5058627557,7751534678]:
         await message.reply_text(f"Обновление начато")
         st = ""
         l = 0
