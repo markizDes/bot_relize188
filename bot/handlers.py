@@ -138,7 +138,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global TIME_str
     if user.id in USER_ID:
         await message.reply_text(
-            f"Бот запущен 0.4")
+            f"Бот запущен 0.5")
 
 
         while 1:
