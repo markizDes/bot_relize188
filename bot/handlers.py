@@ -61,7 +61,7 @@ HELP_TEXT = """Available commands:
 
 Send a normal text message and the bot will echo it back."""
 USER_ID = [8293418325,5058627557,7751534678]
-TIME_str= -11
+TIME_str= -12
 #Команды не относящиеся к сообщениям
 def get_sheet_data(sheet_name=None):
     """Получить данные с конкретного листа"""
